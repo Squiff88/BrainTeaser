@@ -1,0 +1,12 @@
+.BoardWrapper {
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80vw;
+    height: 80vh;
+    border: 10px solid #DB8D0D;
+    border-radius: 15px;
+    background-color: #fca311;
+    padding: 20px;
+
+}
