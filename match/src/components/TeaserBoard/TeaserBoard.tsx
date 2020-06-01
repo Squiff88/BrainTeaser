@@ -25,13 +25,19 @@ const TeaserBoard = ():JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [teaserStateOut])
 
-
-    const flippedCards:CardStatePropTypes[]  = availableCards.filter(card => card.flipped);
-    console.log(flippedCards, 'flipped maina ')
+    let flippedCards:CardStatePropTypes[] = [];
+    flippedCards = availableCards.filter(card => {
+        if(card.flipped && !card.matched){
+            return card;
+        }
+    });
+    
     if(flippedCards.length >= 2 && flippedCards.length % 2 === 0 && flippedCards.some(card => !card.matched)){
+        console.log(flippedCards , ' flipped cards')
         setTimeout(() => {
+            flippedCards = [];
             flipBack(availableCards);
-        }, 700)
+        }, 1200);
     }
     
 

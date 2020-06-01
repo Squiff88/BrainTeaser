@@ -1,13 +1,34 @@
 import { brainData } from '../data/brainData';
 import { atom, selector } from 'recoil';
 
+
+// Shuffle initial data
+function shuffle(originalArray) {
+  var array = [].concat(originalArray);
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 // Helper Function to flip the cards
 const flipCardHandler = (filteredValues, flipSide) => {
   filteredValues = filteredValues.map((card, index) => {
     if(card.flipped && !card.matched){
       const newObj = {...card};
       newObj.flipped = flipSide;
-
       return newObj
     }
     return card;
@@ -22,9 +43,14 @@ export const teaserCardState = atom({
     default: brainData,
   });
 
+// Flip back if cards does not match
 export const teaserCardStateOut = atom({
     key: 'teaserCardOut',
-    default: brainData,
+    default: () => {
+      const shuffledData = shuffle(brainData);
+      console.log('once per round ???')
+      return shuffledData
+    },
 });
 
 
@@ -32,7 +58,7 @@ export const flipCardOut = selector({
   key: teaserCardStateOut,
   set: (( {get,set }, updatedCard) => {
     const flipOut = flipCardHandler(updatedCard, false);
-    console.log(flipOut, 'flipe out !!!! 💣💣💣💣💣')
+    console.log('flip back !')
     return set(teaserCardStateOut, flipOut);
   })
 })

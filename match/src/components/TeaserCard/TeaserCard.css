@@ -1,20 +1,20 @@
 .CardWrapperHeads {
     display: inline-flex;
     border: 2px solid #DB8D0D;
-    background-image: linear-gradient(to right, #e3f2f2, #e1f2ee, #e1f2e9, #e4f2e2, #eaf0db, #eaf0db, #eaf0db, #eaf0db, #e4f2e2, #e1f2e9, #e1f2ee, #e3f2f2);
+    background-color: #cae9ff;
     flex: 1;
     justify-content: center;
     cursor: pointer;
     
-    -webkit-box-shadow: inset 2px 0px 15px 0px rgba(71,63,6,1);
-    -moz-box-shadow: inset 2px 0px 15px 0px rgba(71,63,6,1);
-    box-shadow: inset 2px 0px 15px 0px rgba(71,63,6,1);
+    -webkit-box-shadow: inset 2px 0px 8px 0px rgba(71,63,6,1);
+    -moz-box-shadow: inset 2px 0px 8px 0px rgba(71,63,6,1);
+    box-shadow: inset 2px 0px 8px 0px rgba(71,63,6,1);
 }
 
 .CardWrapperTails {
     display: inline-flex;
     border: 2px solid #DB8D0D;
-    background-image: linear-gradient(to right, #e3f2f2, #e1f2ee, #e1f2e9, #e4f2e2, #eaf0db, #eaf0db, #eaf0db, #eaf0db, #e4f2e2, #e1f2e9, #e1f2ee, #e3f2f2);
+    background-color: #eae2b7;
     flex: 1;
     justify-content: center;
     cursor: pointer;
@@ -38,7 +38,7 @@
 
 @media only screen and (min-width: 1024px) {
     .ImageWrapper {
-        min-height: 150px;
+        min-height: 130px;
         padding: 20px 10px;
     }
 }
