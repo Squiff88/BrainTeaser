@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './icons/chemistry.png';
 import './App.css';
 import TeaserBoard from './components/TeaserBoard/TeaserBoard';
 
