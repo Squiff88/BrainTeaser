@@ -44,7 +44,7 @@ export const teaserCardState = atom({
   });
 
 // Flip back if cards does not match
-export const teaserCardStateOut = atom({
+export const one = atom({
     key: 'teaserCardOut',
     default: () => {
       const shuffledData = shuffle(brainData);
@@ -55,11 +55,12 @@ export const teaserCardStateOut = atom({
 
 
 export const flipCardOut = selector({
-  key: teaserCardStateOut,
+  key: one,
   set: (( {get,set }, updatedCard) => {
     const flipOut = flipCardHandler(updatedCard, false);
-    console.log('flip back !')
-    return set(teaserCardStateOut, flipOut);
+    console.log(updatedCard, 'flip back !')
+    console.log(flipOut, 'flip back !')
+    return set(one, flipOut);
   })
 })
 

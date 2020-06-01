@@ -69,24 +69,25 @@ img {
 
   .AnimationIn {
     transform: rotateY(-180deg);
-    transition: 0.7s;
+    transition: 0.8s;
     transition-timing-function: ease-in-out;
     transform-style: preserve-3d;
+    visibility: visible;
+    backface-visibility: visible;
     
   }
 
   .AnimationOut {
     transform: rotateY(0deg);
-    transition: 0.3s;
+    transition: 1s;
     transition-timing-function: ease-in-out;
     transform-style: preserve-3d;
-    
   }
 
 
 .FlippedIn {
     animation: flipIn 0.3s forwards ease-in-out;
-    opacity: 0;
+    opacity: 1;
 }
 
 .FlipOut {
@@ -94,7 +95,7 @@ img {
     animation: rotate 25s infinite linear;
 
 }
-
+/* 
 @keyframes flipIn {
     from {
         opacity: 0;
@@ -104,7 +105,7 @@ img {
         visibility: visible;
         opacity: 1;
     }
-  }
+  } */
 
   @keyframes rotate {
     from {
