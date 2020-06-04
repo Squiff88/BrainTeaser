@@ -1,6 +1,6 @@
 import React from 'react';
 import './TeaserCard.css';
-import { CardStatePropTypes } from '@/globalState/teaserCardType';
+import { CardStatePropTypes } from '@/store/teaserCardType';
 
 
 

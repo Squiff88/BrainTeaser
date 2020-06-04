@@ -1,18 +1,20 @@
 import React from 'react';
-import TeaserCard from '../TeaserCard/TeaserCard';
-import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import { teaserCardState, flipTeaserCard, one, flipCardOut } from '../../globalState/teaserCardState';
-import { CardStatePropTypes } from '../../globalState/teaserCardType';
 import './TeaserBoard.css';
+import TeaserCard from '../TeaserCard/TeaserCard';
+import { CardStatePropTypes } from '../../store/teaserCardType';
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
+import { flipTeaserCard } from '../../store/selectorHandlers';
+import { teaserCards } from '../../store/atomState';
+import { flipBackCard } from '../../store/helpers/flipCard'
 
 
 const TeaserBoard = ():JSX.Element => {
     
-    const [availableCards, setAvailableCards] = useRecoilState(teaserCardState);
+    const [availableCards, setAvailableCards] = useRecoilState(teaserCards);
     
-    const teaserStateOut = useRecoilValue(one);
+    const teaserStateOut = useRecoilValue(teaserCards);
     const filteredTeaserSet = useSetRecoilState(flipTeaserCard);
-    const flipBack = useSetRecoilState(flipCardOut);
+
 
 
     React.useEffect(() => {
@@ -21,6 +23,7 @@ const TeaserBoard = ():JSX.Element => {
     }, [teaserStateOut, filteredTeaserSet ])
 
     let flippedCards:CardStatePropTypes[] = [];
+
     flippedCards = availableCards.filter(card => {
         if(card.flipped && !card.matched){
             return card;
@@ -33,7 +36,8 @@ const TeaserBoard = ():JSX.Element => {
     if(flippedCards.length === 2 && flippedCards.length % 2 === 0 && flippedCards.some(card => !card.matched)){
         loading = true;
         setTimeout(() => {
-            flipBack(availableCards);
+            const flipped = flipBackCard(availableCards, false);
+            setAvailableCards(flipped)
             loading = false;
         }, 1200);
     }
@@ -59,3 +63,9 @@ const TeaserBoard = ():JSX.Element => {
 }
 
 export default TeaserBoard;
+
+
+
+// ATOMS IN DIFFERENT FILES
+
+// USE HOOK TO TAKE LOGIC FROM SELECTORS
