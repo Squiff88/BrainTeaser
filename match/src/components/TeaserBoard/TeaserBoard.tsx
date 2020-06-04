@@ -7,16 +7,20 @@ import { flipTeaserCard } from '../../store/selectorHandlers';
 import { teaserCards } from '../../store/atomState';
 import { flipBackCard } from '../../store/helpers/flipCard'
 
+interface TeaserBoardPropTypes {
+    startTime: (input) => void;
+    stopTimer: (input) => void;
+    timer: boolean;
+}
 
-const TeaserBoard = ():JSX.Element => {
-    
+const TeaserBoard = (props: TeaserBoardPropTypes):JSX.Element => {
+
+    const { startTime, stopTimer, timer } = props;
+
     const [availableCards, setAvailableCards] = useRecoilState(teaserCards);
-    
     const teaserStateOut = useRecoilValue(teaserCards);
     const filteredTeaserSet = useSetRecoilState(flipTeaserCard);
-
-
-
+  
     React.useEffect(() => {
         setAvailableCards(teaserStateOut)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,6 +35,20 @@ const TeaserBoard = ():JSX.Element => {
         return null;
     });
 
+    const filters = (data) => {
+        if(!timer){
+            startTime(true)
+        }
+    
+        return filteredTeaserSet(data)
+    }
+    
+    const allFlipped = availableCards.filter(card => !card.matched)
+
+    if(allFlipped.length === 0 && flippedCards.length === 0){
+        stopTimer(true);
+    }
+    
 
     let loading = false;
     if(flippedCards.length === 2 && flippedCards.length % 2 === 0 && flippedCards.some(card => !card.matched)){
@@ -40,6 +58,7 @@ const TeaserBoard = ():JSX.Element => {
             setAvailableCards(flipped)
             loading = false;
         }, 1200);
+
     }
 
 
@@ -48,14 +67,14 @@ const TeaserBoard = ():JSX.Element => {
         <div className='BoardWrapper'>
             {availableCards.map((data, index) => {
                 return (
-                <TeaserCard 
-                    cardData={data} 
-                    key={data.id ?? Math.random() * 13 / 29} 
-                    filteredTeaserSet={filteredTeaserSet} 
-                    teaserCardIndex={index} 
-                    flippedCards={flippedCards}
-                    loading={loading}
-                />
+                    <TeaserCard 
+                        cardData={data} 
+                        key={data.id ?? Math.random() * 13 / 29} 
+                        filteredTeaserSet={filters} 
+                        teaserCardIndex={index} 
+                        flippedCards={flippedCards}
+                        loading={loading}
+                    />
                 )}
             )}
         </div>

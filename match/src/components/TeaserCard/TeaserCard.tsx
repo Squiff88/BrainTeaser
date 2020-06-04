@@ -38,10 +38,21 @@ const TeaserCard = (props: TeaserCardPropTypes):JSX.Element => {
         flipCardHandler = false;
     }
 
+    const cardHandler = () => {
+        if(flipCardHandler){
+            if(cardData.flipped || loading){
+                return null;
+            }
+            setStateHandler(cardData, teaserCardIndex);
+ 
+        }
+        return null;
+    }
+
     return (
         <div 
             className={`${cardStyle} ${animationStyles}`} 
-            onClick={flipCardHandler ? () => (cardData.flipped || loading) ? null : setStateHandler(cardData, teaserCardIndex) : null}>
+            onClick={cardHandler}>
             <div className='ImageWrapper'>
                 <img className={iconAnimation} src={cardImage} alt='icon' />
             </div>
